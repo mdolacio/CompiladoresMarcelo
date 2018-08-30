@@ -18,21 +18,23 @@ LCURLY : '{';
 RCURLY : '}';
 
 ID  :
-  ('a'..'z' | 'A'..'Z'| '0'..'9'| '?'|',')+;
-
-ID2  :
-  ('a'..'z' | 'A'..'Z'| '0'..'9');
+  (LETRAS|'_')(LETRAS|NUMEROS|'_')+;
 
 
 WS_ : (' ' | '\n' ) -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
-CHAR : '\'' (ESC|ID2) '\'';
+CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
  
-STRING : '"' (ESC|~'"'|ID)* '"';
+STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*	'"';
 
 fragment
-ESC :  '\\' ('n'|'"'|'t'|'\\');
+ESC :  '\\' ('n'|'"'|'t'|'\\'|'\''|'\"');
 
-
+fragment
+LETRAS : ('a'..'z' | 'A'..'Z');
+fragment
+NUMEROS : ('0'..'9');
+fragment
+ESPECIAL : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'('|')'|'*'|'+'|','|'-'|'.'|'/'|':'|';'|'<'|'='|'>'|'?'|'@'|'['|']'|'^'|'_'|'´'|'`'|'{'|'|'|'}'|'~'|'\t'|'\\'|'\"');
