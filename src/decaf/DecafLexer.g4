@@ -29,12 +29,22 @@ CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
  
 STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*	'"';
 
+NUMBER: (NUMEROS)+;
+
+OPERADORES : ('+'|'-'|'*'|'/');
+
 fragment
 ESC :  '\\' ('n'|'"'|'t'|'\\'|'\''|'\"');
 
 fragment
 LETRAS : ('a'..'z' | 'A'..'Z');
+
 fragment
 NUMEROS : ('0'..'9');
+
 fragment
 ESPECIAL : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'('|')'|'*'|'+'|','|'-'|'.'|'/'|':'|';'|'<'|'='|'>'|'?'|'@'|'['|']'|'^'|'_'|'´'|'`'|'{'|'|'|'}'|'~'|'\t'|'\\'|'\"');
+
+
+
+

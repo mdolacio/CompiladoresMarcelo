@@ -41,6 +41,9 @@ class Main {
 						case DecafLexer.ID:
 		        				type = " IDENTIFIER";
 		        				break;
+						case DecafLexer.NUMBER:
+		        				type = " INTLITERAL";
+		        				break;
 		        			}
 
 		        			System.out.println (token.getLine() + type + " " + text);
