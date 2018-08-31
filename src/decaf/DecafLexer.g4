@@ -18,7 +18,7 @@ LCURLY : '{';
 RCURLY : '}';
 
 ID  :
-  (LETRAS|'_')(LETRAS|NUMEROS|'_')+;
+  (LETRAS|'_') +;
 
 
 WS_ : (' ' | '\n' ) -> skip;
@@ -31,7 +31,7 @@ STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*	'"';
 
 NUMBER: (NUMEROS)+;
 
-OPERADORES : ('+'|'-'|'*'|'/');
+OPERADORES : ('+'|'-'|'*'|'/'|'<'|'<='|'!='|'&&');
 
 fragment
 ESC :  '\\' ('n'|'"'|'t'|'\\'|'\''|'\"');
