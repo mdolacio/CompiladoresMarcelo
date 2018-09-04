@@ -21,7 +21,7 @@ RESERVADOS: ('if'|'boolean'|'callout'|'class'|'else'|'int'|'return'|'void'|'for'
 
 BOOLEAN: ('true'|'false');
 																								
-ID  : (LETRAS|'_') +;
+ID  : (LETRAS|'_'|'_'NUMEROS*)+;
 
 CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
 
