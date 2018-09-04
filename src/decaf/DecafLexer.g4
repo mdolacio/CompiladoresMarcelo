@@ -17,17 +17,19 @@ tokens
 LCURLY : '{';
 RCURLY : '}';
 
-ID  :
-  (LETRAS|'_') +;
+RESERVADOS: ('if'|'boolean'|'callout'|'class'|'else'|'int'|'return'|'void'|'for'|'break'|'continue');
 
+BOOLEAN: ('true'|'false');
+																								
+ID  : (LETRAS|'_') +;
+
+CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
+
+STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*	'"';
 
 WS_ : (' ' | '\n' ) -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
-
-CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
- 
-STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*	'"';
 
 NUMBER: (NUMEROS)+;
 
