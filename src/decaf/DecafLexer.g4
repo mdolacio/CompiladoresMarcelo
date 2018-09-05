@@ -27,11 +27,13 @@ CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
 
 STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*	'"';
 
-WS_ : (' ' | '\n' ) -> skip;
+WS_ : (' ' | '\n'|'\t' ) -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
 NUMBER: (NUMEROS)+;
+
+HEXA :'0x'(NUMEROS|LETRAS)+;
 
 OPERADORES : ('+'|'-'|'*'|'/'|'<'|'<='|'!='|'&&');
 
