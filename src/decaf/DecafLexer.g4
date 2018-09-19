@@ -14,14 +14,25 @@ tokens
   TK_class
 }
 
+IF:'if';
+BOOLEAN: 'boolean';
+CALLOUT:'callout';
+CLASS:'class';
+ELSE:'else';
+RETURN:'return';
+VOID:'void';
+FOR:'for';
+BREAK:'break';
+CONTINUE:'continue';
+PROGRAM:'Program';
 
 LCURLY : '{';
 RCURLY : '}';
 
 
-RESERVADOS: ('if'|'boolean'|'callout'|'class'|'else'|'int'|'return'|'void'|'for'|'break'|'continue');
 
-BOOLEAN: ('true'|'false');
+
+NHA: ('true'|'false');
 																								
 ID  : ('_'|LETRAS)(LETRAS|'_'|NUMEROS)*;
 
