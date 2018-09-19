@@ -25,7 +25,7 @@ FOR:'for';
 BREAK:'break';
 CONTINUE:'continue';
 PROGRAM:'Program';
-
+INT: 'int';
 LCURLY : '{';
 RCURLY : '}';
 
@@ -61,6 +61,8 @@ OU : '|';
 IGUAL : '=';
 MAIOR : '<';
 MENOR : '>';
+FECHACHAVE : '}';
+ABRECHAVE : '{'; 
 
 OPERADORES : ('+'|'-'|'*'|'/'|'<'|'<='|'!='|'&&');
 
