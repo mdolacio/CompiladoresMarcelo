@@ -14,6 +14,7 @@ tokens
   TK_class
 }
 
+INT: 'int';
 IF:'if';
 BOOLEAN: 'boolean';
 CALLOUT:'callout';
@@ -25,20 +26,8 @@ FOR:'for';
 BREAK:'break';
 CONTINUE:'continue';
 PROGRAM:'Program';
-INT: 'int';
 LCURLY : '{';
 RCURLY : '}';
-
-
-
-
-NHA: ('true'|'false');
-																								
-ID  : ('_'|LETRAS)(LETRAS|'_'|NUMEROS)*;
-
-CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
-
-STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*	'"';
 
 
 
@@ -57,14 +46,39 @@ ABRECOLCHETE : '[';
 FECHACOLCHETE : ']';
 ABREPAR : '(';
 FECHAPAR : ')';
-OU : '|';
-IGUAL : '=';
-MAIOR : '<';
-MENOR : '>';
-FECHACHAVE : '}';
-ABRECHAVE : '{'; 
+OU : '||';
+IGUAL : '==';
+DIF: '!=';
+MAIOR : '>';
+MAIORIGUAL:'>=';
+MENOR : '<';
+MENORIGUAL: '<=';
+
+MAISIGUAL: '+=';
+MENOSIGUAL: '-=';
+MENOS: '-';
+ATRIB: '=';
+EEE: '&&';
+EXCLAMACAO: '!';
+UNDERLINE: '_';
+MAIS: '+';
+MULT:'*';
+DIV:'/';
+RESTO:'%';
+
+
+NHA: ('true'|'false');
+                                                                                                
+ID  : ('_'|LETRAS)(LETRAS|'_'|NUMEROS)*;
+
+CHAR : '\'' (ESC|LETRAS|NUMEROS) '\'';
+
+STRING : '"' (LETRAS|NUMEROS|ESPECIAL)*    '"';
+
 
 OPERADORES : ('+'|'-'|'*'|'/'|'<'|'<='|'!='|'&&');
+
+LETRA : ('a'..'z' | 'A'..'Z');
 
 fragment
 ESC :  '\\' ('n'|'"'|'t'|'\\'|'\''|'\"');
@@ -76,6 +90,4 @@ fragment
 NUMEROS : ('0'..'9');
 
 fragment
-ESPECIAL : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'('|')'|'*'|'+'|','|'-'|'.'|'/'|':'|';'|'<'|'='|'>'|'?'|'@'|'['|']'|'^'|'_'|'´'|'`'|'{'|'|'|'}'|'~'|'\t'|'\\'|'\"');
-
-
+ESPECIAL : (' '|'!'|'"'|'#'|'$'|'%'|'&'|'\\\''|'.'|'/'|':'|'?'|'@'|'^'|'´'|'`'|'~'|'\t'|'\\'|'\"');

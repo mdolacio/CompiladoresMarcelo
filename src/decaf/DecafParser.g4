@@ -1,7 +1,7 @@
 parser grammar DecafParser;
 
 @header {
-package decaf;
+package decaf; 
 }
 
 options
@@ -10,37 +10,84 @@ options
   tokenVocab=DecafLexer;
 }
 
-program: CLASS  PROGRAM LCURLY (declaracao)* (metodo)* RCURLY;
+program: CLASS PROGRAM LCURLY (declaracao)* (metodo)* RCURLY;
 
-declaracao: 
+declaracao:
 	(tipo id | tipo id ABRECOLCHETE int_literal FECHACOLCHETE)
 	(VIRGULA (tipo id | tipo id ABRECOLCHETE int_literal FECHACOLCHETE))* PONTOEVIRGULA;
 
+    	
 metodo: (tipo|VOID) id ABREPAR (tipo id(VIRGULA tipo id)*)* FECHAPAR bloco;
 
-bloco : ABRECHAVE (var_declarada)* (statement)* FECHACHAVE;
+bloco : LCURLY var_declarada* statement* RCURLY;
 
 var_declarada : tipo id(VIRGULA id)* PONTOEVIRGULA;
 
 
 tipo: INT | BOOLEAN;
 
-statement : localizacao assinatura expressao PONTOEVIRGULA
+statement :  location assign_op expr PONTOEVIRGULA
             | metodo_call PONTOEVIRGULA
-            | IF ABREPAR expressao FECHAPAR bloco (ELSE bloco)* 
-	    | FOR id IGUAL expressao VIRGULA expressao bloco
-	    | RETURN (expressao)* PONTOEVIRGULA
-	    | BREAK PONTOEVIRGULA
-	    | CONTINUE PONTOEVIRGULA
-	    | bloco;
+            | IF ABREPAR expr FECHAPAR bloco (ELSE bloco)?
+       	    | FOR id ATRIB expr VIRGULA expr bloco
+            | RETURN (expr)* PONTOEVIRGULA
+            | BREAK PONTOEVIRGULA
+            | CONTINUE PONTOEVIRGULA
+            | bloco;
+
+assign_op : ATRIB|MAISIGUAL|MENOSIGUAL;
+
+metodo_call : metodo_nome ABREPAR ( expr(VIRGULA expr)*)? FECHAPAR
+          |CALLOUT ABREPAR string_literal ( VIRGULA callout_arg(VIRGULA callout_arg)*)? FECHAPAR;
+
+callout_arg: expr | string_literal;
+
+metodo_nome: id
+         |id ABRECOLCHETE expr FECHACOLCHETE;
+
+location: id
+	  |id ABRECOLCHETE expr FECHACOLCHETE;
+
+expr: location
+      |metodo_call
+      |literal
+      |expr  bin_op expr
+      | MENOS expr
+      | EXCLAMACAO expr
+      | ABREPAR expr FECHAPAR;
 
 
 
+bin_op: arith_op | rel_op | eq_op | cond_op;
 
-expressao: ;
+arith_op: MAIS|MENOS|MULT|DIV|RESTO ;
 
-id : ID;
+rel_op: MENOR|MAIOR|MENORIGUAL|MAIORIGUAL;
+
+eq_op: IGUAL|DIF;
+
+cond_op: EEE| OU;
+
+literal: int_literal | char_literal | bool_literal;
+
+id: ID ;
+
+alpha_num: alpha | digit;
+
+alpha: LETRA;
+
+digit:NUMBER;
 
 int_literal: NUMBER;
 
-bloco: CHAR;
+decimal_literal: digit digit*;
+
+hex_literal: HEXA;
+
+bool_literal: NHA;
+
+char_literal: CHAR;
+
+string_literal: STRING;
+
+
