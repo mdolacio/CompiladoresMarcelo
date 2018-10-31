@@ -12,19 +12,23 @@ options
 
 program: CLASS PROGRAM LCURLY (declaracao)* (metodo)* RCURLY;
 
-declaracao:
-	(tipo id | tipo id ABRECOLCHETE int_literal FECHACOLCHETE)
-	(VIRGULA (tipo id | tipo id ABRECOLCHETE int_literal FECHACOLCHETE))* PONTOEVIRGULA;
+declaracao: 
+	(tipo_metodo| tipo_metodo ABRECOLCHETE int_literal FECHACOLCHETE)
+	(VIRGULA (tipo_metodo | tipo_metodo ABRECOLCHETE int_literal FECHACOLCHETE))* PONTOEVIRGULA;
 
     	
-metodo: (tipo|VOID) id ABREPAR (tipo id(VIRGULA tipo id)*)* FECHAPAR bloco;
+tipo_metodo: tipo id;
+assinatura_metodo: tipo_metodo (VIRGULA tipo_metodo)*;
+
+retorno_metodo: tipo|VOID id;
+metodo: retorno_metodo ABREPAR (assinatura_metodo)* FECHAPAR bloco;
 
 bloco : LCURLY var_declarada* statement* RCURLY;
 
-var_declarada : tipo id(VIRGULA id)* PONTOEVIRGULA;
+var_declarada : tipo_metodo(VIRGULA id)* PONTOEVIRGULA;
 
 
-tipo: INT | BOOLEAN;
+tipo: TIPO;
 
 statement :  location assign_op expr PONTOEVIRGULA
             | metodo_call PONTOEVIRGULA

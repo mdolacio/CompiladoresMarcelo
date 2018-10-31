@@ -14,6 +14,7 @@ tokens
   TK_class
 }
 
+TIPO: INT | BOOLEAN;
 INT: 'int';
 IF:'if';
 BOOLEAN: 'boolean';
