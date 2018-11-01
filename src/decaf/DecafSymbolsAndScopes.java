@@ -30,9 +30,9 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
         System.out.println(globals);
     }
 
-    @Override
-    public void enterRetorno_metodo(DecafParser.Retorno_metodoContext ctx) {
-        String name = ctx.id().start.getText();
+   @Override
+	public void enterMetodo(DecafParser.MetodoContext ctx) { 
+        String name = ctx.ID().getText();
         //int typeTokenType = ctx.type().start.getType();
         //DecafSymbol.Type type = this.getType(typeTokenType);
 
@@ -62,31 +62,31 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
         popScope();
     }
 
-   /* @Override
+    @Override
     public void enterDeclaracao(DecafParser.DeclaracaoContext ctx) {
-        defineVar(ctx.type(), ctx.ID().getSymbol());
+       // defineVar(ctx.type(), ctx.ID().getSymbol());
     }
 
     @Override
     public void exitDeclaracao(DecafParser.DeclaracaoContext ctx) {
-        String name = ctx.ID().getSymbol().getText();
+        /*String name = ctx.ID().getSymbol().getText();
         Symbol var = currentScope.resolve(name);
         if ( var==null ) {
             this.error(ctx.ID().getSymbol(), "no such variable: "+name);
         }
         if ( var instanceof FunctionSymbol ) {
             this.error(ctx.ID().getSymbol(), name+" is not a variable");
-        }
+        }*/
     }
 
     void defineVar(DecafSymbol.Type typeCtx, Token nameToken) {
-        int typeTokenType = typeCtx.start.getType();
-        VariableSymbol var = new VariableSymbol(nameToken.getText());
+        //int typeTokenType = typeCtx.start.getType();
+        //VariableSymbol var = new VariableSymbol(nameToken.getText());
 
         // DecafSymbol.Type type = this.getType(typeTokenType);
         // var.setType(type);
 
-        currentScope.define(var); // Define symbol in current scope
+        //currentScope.define(var); // Define symbol in current scope
     }
 
     /**
@@ -128,13 +128,13 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
      * @param tokenType
      * @return
      */
-    public static DecafSymbol.Type getType(int tokenType) {
+   /* public static DecafSymbol.Type getType(int tokenType) {
         switch ( tokenType ) {
             case DecafParser.VOID :  return DecafSymbol.Type.tVOID;
             case DecafParser.NUMBER :   return DecafSymbol.Type.tINT;
         }
         return DecafSymbol.Type.tINVALID;
-    }
+    }*/
 
 
 }

@@ -12,28 +12,27 @@ options
 
 program: CLASS PROGRAM LCURLY (declaracao)* (metodo)* RCURLY;
 
+
+
+
 declaracao: 
-	(tipo_metodo| tipo_metodo ABRECOLCHETE int_literal FECHACOLCHETE)
-	(VIRGULA (tipo_metodo | tipo_metodo ABRECOLCHETE int_literal FECHACOLCHETE))* PONTOEVIRGULA;
+	(tipo_metodo (VIRGULA tipo_metodo)*|
+	tipo_metodo ABRECOLCHETE int_literal FECHACOLCHETE (VIRGULA tipo_metodo ABRECOLCHETE int_literal FECHACOLCHETE)*) PONTOEVIRGULA;
 
-    	
-tipo_metodo: tipo id;
-assinatura_metodo: tipo_metodo (VIRGULA tipo_metodo)*;
 
-retorno_metodo: tipo|VOID id;
-metodo: retorno_metodo ABREPAR (assinatura_metodo)* FECHAPAR bloco;
+metodo: (tipo | VOID) ID ABREPAR (tipo_metodo(VIRGULA tipo_metodo)*) ? FECHAPAR bloco;
 
 bloco : LCURLY var_declarada* statement* RCURLY;
 
-var_declarada : tipo_metodo(VIRGULA id)* PONTOEVIRGULA;
+var_declarada : tipo_metodo(VIRGULA ID)* PONTOEVIRGULA;
+tipo_metodo: tipo ID;
 
-
-tipo: TIPO;
+tipo: INT|BOOLEAN;
 
 statement :  location assign_op expr PONTOEVIRGULA
             | metodo_call PONTOEVIRGULA
             | IF ABREPAR expr FECHAPAR bloco (ELSE bloco)?
-       	    | FOR id ATRIB expr VIRGULA expr bloco
+       	    | FOR ID ATRIB expr VIRGULA expr bloco
             | RETURN (expr)* PONTOEVIRGULA
             | BREAK PONTOEVIRGULA
             | CONTINUE PONTOEVIRGULA
@@ -46,11 +45,11 @@ metodo_call : metodo_nome ABREPAR ( expr(VIRGULA expr)*)? FECHAPAR
 
 callout_arg: expr | string_literal;
 
-metodo_nome: id
-         |id ABRECOLCHETE expr FECHACOLCHETE;
+metodo_nome: ID
+         |ID ABRECOLCHETE expr FECHACOLCHETE;
 
-location: id
-	  |id ABRECOLCHETE expr FECHACOLCHETE;
+location: ID
+	  |ID ABRECOLCHETE expr FECHACOLCHETE;
 
 expr: location
       |metodo_call
@@ -74,7 +73,6 @@ cond_op: EEE| OU;
 
 literal: int_literal | char_literal | bool_literal;
 
-id: ID ;
 
 alpha_num: alpha | digit;
 
