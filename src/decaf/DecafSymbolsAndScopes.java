@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
-
+import java.util.ArrayList;
 
 /**
  * This class defines basic symbols and scopes for Decaf language
@@ -18,6 +18,9 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
     ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
     GlobalScope globals;
     Scope currentScope; // define symbols in this scope
+
+    ArrayList <String> listVariaveis = new ArrayList();
+    String ia = "vadjo";
 
     @Override
     public void enterProgram(DecafParser.ProgramContext ctx) {
@@ -29,7 +32,33 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
     public void exitProgram(DecafParser.ProgramContext ctx) {
         System.out.println(globals);
     }
+    
+    @Override 
+    public void exitStatement(DecafParser.StatementContext ctx) {
+        if(listVariaveis.contains(ia)== false){
+            error(ctx.location().ID().getSymbol(), "variavel nao declarada");
+        }
+     }
 
+    @Override
+    public void enterVar_declarada(DecafParser.Var_declaradaContext ctx) { 
+
+        for( int i = 0; i<ctx.ID().size(); i++ ){
+            ia = ctx.ID(i).getSymbol().getText();
+            if(listVariaveis.contains(ia)== true){
+               error(ctx.ID(i).getSymbol(), "Variaveis Repetidas");
+            } else {
+                listVariaveis.add(ia);
+            }
+            
+        }
+    }
+	
+    @Override 
+    public void exitVar_declarada(DecafParser.Var_declaradaContext ctx) { 
+         
+    }
+	
    @Override
 	public void enterMetodo(DecafParser.MetodoContext ctx) { 
         String name = ctx.ID().getText();
@@ -54,7 +83,7 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
     public void enterBloco(DecafParser.BlocoContext ctx) {
         LocalScope l = new LocalScope(currentScope);
         saveScope(ctx, currentScope);
-        // pushScope(l);
+         pushScope(l);
     }
 
     @Override
