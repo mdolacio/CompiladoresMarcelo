@@ -24,7 +24,7 @@ metodo: (tipo | VOID) ID ABREPAR (tipo_metodo(VIRGULA tipo_metodo)*) ? FECHAPAR 
 
 bloco : LCURLY var_declarada* statement* RCURLY;
 
-var_declarada : tipo_metodo(VIRGULA ID)* PONTOEVIRGULA;
+var_declarada : tipo ID(VIRGULA ID)* PONTOEVIRGULA;
 tipo_metodo: tipo ID;
 
 tipo: INT|BOOLEAN;

@@ -49,6 +49,7 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
                error(ctx.ID(i).getSymbol(), "Variaveis Repetidas");
             } else {
                 listVariaveis.add(ia);
+		defineVar(ctx.tipo(),ctx.ID(i).getSymbol());
             }
             
         }
@@ -58,6 +59,9 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
     public void exitVar_declarada(DecafParser.Var_declaradaContext ctx) { 
          
     }
+    @Override public void enterTipo_metodo(DecafParser.Tipo_metodoContext ctx) {
+defineVar(ctx.tipo(),ctx.ID().getSymbol());
+ }
 	
    @Override
 	public void enterMetodo(DecafParser.MetodoContext ctx) { 
@@ -108,14 +112,14 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
         }*/
     }
 
-    void defineVar(DecafSymbol.Type typeCtx, Token nameToken) {
+    void defineVar(DecafParser.TipoContext typeCtx, Token nameToken) {
         //int typeTokenType = typeCtx.start.getType();
-        //VariableSymbol var = new VariableSymbol(nameToken.getText());
+        VariableSymbol var = new VariableSymbol(nameToken.getText());
 
         // DecafSymbol.Type type = this.getType(typeTokenType);
         // var.setType(type);
 
-        //currentScope.define(var); // Define symbol in current scope
+        currentScope.define(var); // Define symbol in current scope
     }
 
     /**
